@@ -1,0 +1,41 @@
+/*IranYekan*/
+@font-face {
+    font-family: "iranyekan";
+    font-style: normal;
+    font-weight: 900;
+    src: url(./IranYekan/iranyekanwebbold.eot?67d2920ac1e0164c957e884da0b1fc2b);
+    src: url(./IranYekan/iranyekanwebbold.eot?67d2920ac1e0164c957e884da0b1fc2b) format("embedded-opentype"), url(./IranYekan/iranyekanwebbold.woff?a6c7f37a03e19d237de343688a10330f) format("woff"), url(./IranYekan/iranyekanwebbold.ttf?3c04bd57fa8240b0ec575d8c1ff80dbb) format("truetype");
+}
+
+@font-face {
+    font-family: "iranyekan";
+    font-style: normal;
+    font-weight: 500;
+    src: url(./IranYekan/iranyekanwebregular.eot?4f3cd08001a912553842788147e162c2);
+    src: url(./IranYekan/iranyekanwebregular.eot?4f3cd08001a912553842788147e162c2) format("embedded-opentype"), url(./IranYekan/iranyekanwebregular.woff?ba2fd9dab30cd8771aa3b53aa6b036e3) format("woff"), url(./IranYekan/iranyekanwebregular.ttf?71617be58eaec728ca3b9d4d5da8b11d) format("truetype");
+}
+
+@font-face {
+    font-family: "iranyekan";
+    font-style: normal;
+    font-weight: 300;
+    src: url(./IranYekan/iranyekanweblight.eot?c3e2315906102c635b02db3a6666299b);
+    src: url(./IranYekan/iranyekanweblight.eot?c3e2315906102c635b02db3a6666299b) format("embedded-opentype"), url(./IranYekan/iranyekanweblight.woff?ef7595542cb1d899cefcabddb3a59f7f) format("woff"), url(./IranYekan/iranyekanweblight.ttf?2fd2464904104b41ac006f718c6de468) format("truetype");
+}
+
+/*Vazir*/
+@font-face {
+    font-family: "vazir";
+    font-style: normal;
+    font-weight: 900;
+    src: url(./Vazir/Vazir-Bold.eot?67d2920ac1e0164c957e884da0b1fc2b);
+    src: url(./Vazir/Vazir-Bold.eot?67d2920ac1e0164c957e884da0b1fc2b) format("embedded-opentype"), url(./Vazir/Vazir-Bold.woff?a6c7f37a03e19d237de343688a10330f) format("woff"), url(./Vazir/Vazir-Bold.ttf?3c04bd57fa8240b0ec575d8c1ff80dbb) format("truetype");
+}
+
+@font-face {
+    font-family: "vazir";
+    font-style: normal;
+    font-weight: 500;
+    src: url(./Vazir/Vazir.eot?4f3cd08001a912553842788147e162c2);
+    src: url(./Vazir/Vazir.eot?4f3cd08001a912553842788147e162c2) format("embedded-opentype"), url(./Vazir/Vazir.woff?ba2fd9dab30cd8771aa3b53aa6b036e3) format("woff"), url(./Vazir/Vazir.ttf?71617be58eaec728ca3b9d4d5da8b11d) format("truetype");
+}

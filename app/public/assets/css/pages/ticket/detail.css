@@ -1,0 +1,23 @@
+textarea#answer {
+    resize: none;
+}
+
+.chat-message {
+    max-width: 95%;
+}
+
+.chat-message .chat-media {
+    max-width: 100%;
+}
+
+.chat-message .chat-media > img {
+    width: 10rem !important;
+    height: auto !important;
+}
+.chat-message .chat-media > p {
+    max-width: 15rem;
+}
+
+.chat-message .chat-media > div > a > i {
+    font-size: 2rem;
+}

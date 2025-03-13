@@ -1,0 +1,27 @@
+table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, table.dataTable tfoot td {
+	text-align: right;
+}
+
+div.dataTables_wrapper div.dataTables_paginate,
+div.dataTables_wrapper div.dataTables_info {
+	margin-top: 10px !important;
+}
+
+div.dataTables_wrapper div.dataTables_info {
+	padding-top: 0.35rem !important;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before, table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
+	display: inline !important;
+	margin-right: unset !important;
+	margin-left: 0.5rem !important;
+}
+
+table.dataTable>tbody>tr.child span.dtr-title:after {
+	content: " :";
+	font-weight: bold;
+}
+
+table.dataTable>tbody>tr.child ul.dtr-details>li {
+	border: unset !important;
+}

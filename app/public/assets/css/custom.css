@@ -1,0 +1,167 @@
+/*DataTables Custom CSS*/
+@import "custom/datatables.css";
+
+.ck-editor__editable_inline {
+	min-height: 500px;
+	max-height: 500px;
+}
+
+.image-preview-container {
+	width: 50%;
+	margin: 0 auto;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 3rem;
+	border-radius: 20px;
+}
+
+.image-preview-container img {
+	width: 100%;
+	display: none;
+	margin-bottom: 30px;
+}
+
+.image-preview-container input {
+	display: none;
+}
+
+.image-preview-container label {
+	width: 45%;
+	height: 45px;
+	margin-left: 25%;
+	text-align: center;
+	background: #8338ec;
+	color: #fff;
+	font-size: 15px;
+	text-transform: Uppercase;
+	font-weight: 400;
+	border-radius: 5px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.dropzone {
+	border: 2px dashed #028AF4 !important;;
+}
+
+.dropzone .dz-preview .dz-error-message:after {
+	top: unset !important;
+	bottom: -5px;
+	border-bottom: unset !important;
+	border-top: 6px solid var(--bs-danger);
+}
+
+.dropzone .dz-preview .dz-error-message {
+	top: -38px !important;
+	background: var(--bs-danger);
+}
+
+.dropzone .dz-preview .dz-image {
+	border-radius: 0 !important;
+}
+
+.dropzone .dz-preview .dz-image img {
+	width: 100%;
+	height: 100%;
+}
+
+#imgFeatureImage {
+	/*width: 445px;*/
+	height: 270px;
+	object-fit: contain;
+}
+
+.top-blogs .select2-results__option {
+	padding: 0 !important;
+}
+
+.map-search-result {
+	z-index: 9999 !important;
+	height: 200px !important;
+	overflow-y: scroll;
+	margin-right: 1.5rem;
+	margin-left: 1.5rem;
+}
+
+.map-search-result .list-group-item {
+	border: 1px solid #808080FF;
+	border-left: 0;
+	border-right: 0;
+}
+
+.map-search-result .list-group-item:first-child {
+	border-top: 0;
+}
+
+.map-search-result .list-group-item:last-child {
+	border-bottom: 0;
+}
+
+.leaflet-popup-content {
+	font-family: iranyekan, sans-serif;
+	margin: 20px 10px 10px 10px !important;
+	text-align: justify;
+	font-size: 1.08333em !important;
+}
+
+.menu-sub .menu-item {
+	margin-right: 1.2rem;
+}
+
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[role=group] .select2-results__group {
+	background-color: #f3f3f3;
+	display: block;
+}
+
+.btn-translate .dropdown-menu {
+	max-width: 150px;
+}
+
+.loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: rgba(51, 51, 51, 0.3);
+}
+
+.loading #loader {
+	position: fixed;
+	width: 15%;
+	height: auto;
+	vertical-align: middle;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.loading .spinner {
+	width: unset !important;
+}
+
+.font-x-small {
+	font-size: 0.5rem !important;
+}
+
+.font-small {
+	font-size: 0.7rem !important;
+}
+
+.font-medium {
+	font-size: 0.85rem !important;
+}
+
+.font-large {
+	font-size: 1.0rem !important;
+}
+
+.font-x-large {
+	font-size: 1.3rem !important;
+}
+
+jdp-container {
+	z-index: 9999 !important;
+}
