@@ -21,7 +21,7 @@ return [
 	//Errors
 	'validations' => [
 		'username' => [
-			'required' => 'لطفا نام کاربری را وارد کنید',
+			'required' => 'لطفا ایمیل یا نام کاربری را وارد کنید',
 		],
 		'password' => [
 			'required' => 'لطفا کلمه عبور را وارد کنید',

@@ -17,7 +17,6 @@
 	config = $.extend({}, {
 		url: '{{ url('') }}',
 		assetUrl: '{{ asset('') }}',
-		animationsUrl: '{{ asset('assets/vendor/animations') }}'
 	}, config);
 </script>
 

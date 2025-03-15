@@ -30,9 +30,6 @@ WORKDIR /var/www
 # Copy Laravel project files
 COPY app /var/www
 
-# Install Laravel dependencies
-RUN composer install --no-dev --optimize-autoloader
-
 # Set permissions
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 

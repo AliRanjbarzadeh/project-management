@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTransferObjects\AuthDto;
+use App\Http\Requests\AuthRequest;
 use App\Services\AuthService;
 
 class AuthController extends Controller
@@ -21,9 +23,11 @@ class AuthController extends Controller
 
 	public function attempt(AuthRequest $request)
 	{
-		if (auth('admin')->validate(array_merge($request->only('username', 'password'), ['is_active' => true]))) {
-			auth('admin')->attempt(array_merge($request->only('username', 'password'), ['is_active' => true]), $request->input('remember'));
-			$redirectUrl = session()?->get('url.intended', route('index'));
+		$dto = AuthDto::fromRequest($request);
+
+		if (auth('web')->validate($dto->toArray())) {
+			auth('web')->attempt($dto->toArray(), $dto->remember);
+			$redirectUrl = session()?->pull('url.intended', route('index'));
 			return redirect()->intended($redirectUrl);
 		}
 

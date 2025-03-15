@@ -7,21 +7,25 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        $this->app->register(DashboardMenuProvider::class);
-    }
+	/**
+	 * Register any application services.
+	 */
+	public function register(): void
+	{
+		$this->app->register(DashboardMenuProvider::class);
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        $this->resourceVersion();
-    }
+		if ($this->app->isLocal()) {
+			$this->app->register(TelescopeServiceProvider::class);
+		}
+	}
+
+	/**
+	 * Bootstrap any application services.
+	 */
+	public function boot(): void
+	{
+		$this->resourceVersion();
+	}
 
 	private function resourceVersion()
 	{

@@ -5,6 +5,8 @@
 		<div class="authentication-inner">
 			<div class="card">
 				<div class="card-body">
+					@include('templates.form-validation-messages')
+
 					@include('templates.auth-logo')
 
 					<h4 class="mb-2">@lang('auth.title')</h4>
@@ -67,5 +69,5 @@
 
 @push('scripts')
 	<script src="{{ asset('assets/vendor/libs/jbvalidator/jbvalidator.min.js') }}"></script>
-	<script src="{{ asset('assets/js/pages/auth/index.js') }}"></script>
+	<script src="{{ asset('assets/js/components/auth/index.js') }}?ver={{ $resourceVersion }}"></script>
 @endpush
