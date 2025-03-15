@@ -1,7 +1,6 @@
-@extends('layouts.master')
+@extends('layouts.dashboard-master')
 
-@section('content')
-	@datatablesStatistics
+@section('dashboard-content')
 	<div class="card">
 		<div class="card-body">
 			@datatablesTopHead

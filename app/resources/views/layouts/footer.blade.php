@@ -2,7 +2,7 @@
 	<div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
 		<div class="mb-2 mb-md-0">
 			ساخته شده با ❤️ توسط
-			<a href="{{ url('') }}" target="_blank" class="footer-link fw-bolder">تلفن خونه</a>
+			<a href="https://github.com/AliRanjbarzadeh/project-management" target="_blank" class="footer-link fw-bolder">علی رنجبرزاده</a>
 		</div>
 	</div>
 </footer>

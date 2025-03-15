@@ -41,7 +41,7 @@ class AuthController extends Controller
 	{
 		auth('web')->logout();
 
-		return redirect(route('login.index'));
+		return redirect(route('login'));
 	}
 
 	/*==================Create====================*/

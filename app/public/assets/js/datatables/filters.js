@@ -16,11 +16,6 @@ function addFiltersToData(params) {
 $(function () {
 	//filters
 	for (const filter of getFilters()) {
-		const dataType = filter.getAttribute('data-type');
-		if (dataType.startsWith('categories-')) {
-			handleCategories();
-			continue;
-		}
 		switch (filter.getAttribute('data-type')) {
 			case 'text':
 			case 'number':
@@ -32,12 +27,6 @@ $(function () {
 				break;
 
 			case 'status':
-			case 'type':
-			case 'verify_status':
-			case 'status_new':
-			case 'category':
-			case 'user':
-			case 'consultant':
 			case 'dropdown':
 				$(filter).on('change', handleSelect)
 				break;
@@ -82,45 +71,6 @@ function handleSelect() {
 		return;
 	}
 	redrawDatatable(true);
-}
-
-function handleCategories() {
-	$('[data-type^="children-categories"]').on('change', function (e) {
-		if (!preventInputs) {
-			redrawDatatable(true);
-		}
-	});
-
-
-	$('[data-has-children]').on('change', function (e) {
-		const element = e.target;
-		const dataType = element.getAttribute('data-type');
-
-		if (!deleteClick) {
-			preventInputs = true;
-		}
-		categories.get(dataType).forEach((category) => {
-			document.querySelector(`[data-child="categories-${category.id}"]`).classList.add('d-none');
-
-			category.children.forEach(categoryItem => {
-				const childSelect = document.querySelector(`[data-type="children-categories-${category.id}"]`);
-				childSelect.selectedIndex = -1;
-				childSelect.dispatchEvent(new Event('change'));
-			});
-		});
-		if (!deleteClick) {
-			preventInputs = false;
-		}
-
-		if (element.value) {
-			const selectedCategory = categories.get(dataType).find((item) => item.id === parseInt(element.value));
-			document.querySelector(`[data-child="categories-${selectedCategory.id}"]`).classList.remove('d-none');
-		}
-
-		if (!preventInputs) {
-			redrawDatatable(true);
-		}
-	});
 }
 
 function handleButtonClick(event) {

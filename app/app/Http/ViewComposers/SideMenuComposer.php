@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Http\ViewComposers\Menus\ProjectMenu;
 use App\Http\ViewComposers\Menus\SeparatorMenu;
 use Illuminate\View\View;
 
@@ -19,7 +20,7 @@ class SideMenuComposer
 			//Dashboard
 			collect([
 				'href' => route('index'),
-				'is_active' => $request->is('index'),
+				'is_active' => $request->routeIs('index'),
 				'icon' => 'bx bxs-dashboard',
 				'name' => __('dashboard.singular'),
 				'i18n' => 'Dashboard',
@@ -28,6 +29,9 @@ class SideMenuComposer
 
 			//Separator
 			SeparatorMenu::getMenu($request, __('global.words.basic_information')),
+
+			//Projects
+			ProjectMenu::getMenu($request, __('project.plural')),
 		]);
 
 		$view->with('menus', $menus);

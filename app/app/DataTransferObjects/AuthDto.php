@@ -19,7 +19,7 @@ class AuthDto
 		return new self(
 			username: $request->input('username'),
 			password: $request->input('password'),
-			remember: $request->input('remember'),
+			remember: $request->input('remember', false),
 		);
 	}
 

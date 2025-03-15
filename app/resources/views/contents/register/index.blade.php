@@ -1,6 +1,6 @@
 @extends('layouts.auth-master')
 
-@section('content')
+@section('auth-content')
 	<div class="authentication-wrapper authentication-basic container-p-y">
 		<div class="authentication-inner">
 			<div class="card">

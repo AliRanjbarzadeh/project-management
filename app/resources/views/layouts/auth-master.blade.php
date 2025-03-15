@@ -2,6 +2,6 @@
 
 @section('content')
 	<div class="container-xxl">
-		@yield('content')
+		@yield('auth-content')
 	</div>
 @endsection

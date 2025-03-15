@@ -2,7 +2,6 @@
 
 return [
 	'singular' => 'داشبورد',
-	'plural' => 'داشبورد ها',
 
 	//Fields
 
