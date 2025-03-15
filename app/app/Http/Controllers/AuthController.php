@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTransferObjects\AuthDto;
 use App\Http\Requests\AuthRequest;
 use App\Services\AuthService;
+use Morilog\Jalali\Jalalian;
 
 class AuthController extends Controller
 {

@@ -25,7 +25,10 @@ class ProjectController extends Controller
 
 	public function datatables(Request $request)
 	{
-		return $this->service->datatables(DatatablesFilterDto::fromRequest($request));
+		return $this->service->datatables(
+			DatatablesFilterDto::fromRequest($request)
+				->addParam('user_id', $request->user()->id),
+		);
 	}
 
 	public function create()
@@ -42,13 +45,17 @@ class ProjectController extends Controller
 		return redirect()->back()->withInput()->withErrors(['message' => __('project.sentences.store.error')]);
 	}
 
-	public function edit(Project $project)
+	public function edit(Request $request, Project $project)
 	{
+		abort_if(!$this->service->isOwner($request->user(), $project), 403);
+
 		return view('contents.projects.edit', compact('project'));
 	}
 
 	public function update(ProjectRequest $request, Project $project)
 	{
+		abort_if(!$this->service->isOwner($request->user(), $project), 403);
+
 		if ($this->service->update($project, ProjectDto::fromRequest($request))) {
 			return redirect(route('projects.index'))->with('success', __('project.sentences.update.success'));
 		}
@@ -56,8 +63,12 @@ class ProjectController extends Controller
 		return redirect()->back()->withInput()->withErrors(['message' => __('project.sentences.update.error')]);
 	}
 
-	public function destroy(Project $project)
+	public function destroy(Request $request, Project $project)
 	{
+		abort_if(boolean: !$this->service->isOwner($request->user(), $project), code: 403, headers: [
+			'Content-Type' => 'application/json',
+		]);
+
 		if ($this->service->destroy($project)) {
 			return response()->json([
 				'message' => __('project.sentences.destroy.success'),

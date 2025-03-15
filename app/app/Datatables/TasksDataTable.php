@@ -3,26 +3,35 @@
 namespace App\Datatables;
 
 use App\Models\Project;
+use App\Models\Task;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Column;
 
-class ProjectsDataTable extends BaseDataTable
+class TasksDataTable extends BaseDataTable
 {
+	private Project $project;
+
 	public function __construct()
 	{
 		parent::__construct();
 
 		$this->attributes['has_priority'] = false;
 		$this->attributes['exportable'] = false;
-		$this->attributes['model_name'] = Project::class;
+		$this->attributes['model_name'] = Task::class;
+	}
+
+	public function setProject(Project $project): static
+	{
+		$this->project = $project;
+		return $this;
 	}
 
 	public function html(): HtmlBuilder
 	{
 		return parent::html()
-			->setTableId('projects-datatables')
+			->setTableId('tasks-datatables')
 			->ajax([
-				'url' => route('projects.datatables'),
+				'url' => route('projects.tasks.datatables', $this->project),
 				'type' => 'post',
 				'data' => 'function(d) {
 					if (typeof addFiltersToData === "function") {
@@ -30,7 +39,7 @@ class ProjectsDataTable extends BaseDataTable
 					}
 				}',
 			])
-			->orderBy(2);
+			->orderBy(4);
 	}
 
 	public function getColumns(): array
@@ -44,12 +53,26 @@ class ProjectsDataTable extends BaseDataTable
 				->searchable(false),
 
 			Column::make('title')
-				->title(__('project.fields.title'))
+				->title(__('task.fields.title'))
 				->responsivePriority(1)
 				->orderable(false)
 				->exportable()
 				->printable()
 				->type('text'),
+
+			Column::make('due_date_jalali', 'due_date')
+				->title(__('task.fields.due_date'))
+				->orderable()
+				->exportable()
+				->printable()
+				->type('date'),
+
+			Column::make('deadline_jalali', 'deadline')
+				->title(__('task.fields.deadline'))
+				->orderable()
+				->exportable()
+				->printable()
+				->type('date'),
 
 			Column::make('created_at_jalali', 'created_at')
 				->title(__('global.fields.created_at'))

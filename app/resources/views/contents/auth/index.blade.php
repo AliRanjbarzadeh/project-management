@@ -12,13 +12,6 @@
 					<h4 class="mb-2">@lang('auth.title')</h4>
 					<p class="mb-4">@lang('auth.description')</p>
 
-					@error('message')
-					<div class="alert alert-danger alert-dismissible" role="alert">
-						{{ $message }}
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					</div>
-					@enderror
-
 					<form class="mb-3 needs-validation" action="{{ route('login.attempt') }}" method="POST" novalidate>
 						@method('POST')
 						@csrf

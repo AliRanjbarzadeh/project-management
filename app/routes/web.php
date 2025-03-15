@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 //Datatables
@@ -50,6 +51,12 @@ Route::middleware('auth:web')->group(function () {
 	//Project routes
 	Route::prefix('projects')->name('projects.')->group(function () {
 		Route::datatable(ProjectController::class);
+
+		//Task routes
+		Route::prefix('{project}/tasks')->name('tasks.')->group(function () {
+			Route::datatable(TaskController::class);
+		});
+		Route::resource('{project}/tasks', TaskController::class);
 	});
 	Route::resource('projects', ProjectController::class)->except('show');
 });

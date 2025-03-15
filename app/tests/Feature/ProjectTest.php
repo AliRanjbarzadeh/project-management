@@ -12,11 +12,17 @@ class ProjectTest extends TestCase
 	use RefreshDatabase;
 
 	protected User $user;
+	protected User $otherUser;
+	protected Project $project;
 
 	protected function setUp(): void
 	{
 		parent::setUp();
-		$this->user = User::factory()->create(); // Create a user for authentication
+		$this->user = User::factory()->create();
+		$this->otherUser = User::factory()->create();
+		$this->project = Project::factory()->create([
+			'user_id' => $this->user->id,
+		]);
 	}
 
 	public function test_user_can_create_project()
@@ -57,6 +63,26 @@ class ProjectTest extends TestCase
 		$response->assertRedirectToRoute('projects.index');
 		$this->assertDatabaseHas('projects', [
 			'id' => $project->id,
+			'title' => 'Updated Project Title',
+		]);
+	}
+
+	public function test_other_user_can_not_edit_project()
+	{
+		$this->withSession([]);
+
+		$this->actingAs($this->otherUser);
+
+		$updatedData = [
+			'title' => 'Updated Project Title',
+			'description' => 'Updated description',
+		];
+
+		$response = $this->put(route('projects.update', $this->project->id), $updatedData);
+
+		$response->assertForbidden();
+		$this->assertDatabaseMissing('projects', [
+			'id' => $this->project->id,
 			'title' => 'Updated Project Title',
 		]);
 	}

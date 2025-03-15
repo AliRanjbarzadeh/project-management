@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\DataTables\Buttons\ToolButton;
 use App\DataTransferObjects\DatatablesFilterDto;
 use App\DataTransferObjects\ProjectDto;
 use App\Models\Project;
+use App\Models\User;
 
 class ProjectService
 {
@@ -17,14 +19,25 @@ class ProjectService
 	public function datatables(DatatablesFilterDto $dto)
 	{
 		$projects = Project::query()
-			->regexpSearch(term: $dto->getValue('title'), columns: 'title')
+			->whereUserId($dto->getValue('user_id'))
+			->termSearch(term: $dto->getValue('title'), columns: 'title')
 			->dateRangeSearch(fromDate: $dto->getValue('from_created_at'), toDate: $dto->getValue('to_created_at'));
 
 		return $this->datatablesService
 			->setHasPriority(false)
 			->setModule("projects")
+			->addAction(new ToolButton([
+				'title' => __('task.plural'),
+				'url' => 'projects.tasks.index',
+				'icon' => 'bx bx-package',
+			]))
 			->build($projects)
 			->toJson();
+	}
+
+	public function isOwner(User $user, Project $project): bool
+	{
+		return $user->id === $project->user_id;
 	}
 
 	public function store(ProjectDto $dto): ?Project

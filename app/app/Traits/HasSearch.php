@@ -47,7 +47,7 @@ trait HasSearch
 	 *
 	 * @return void
 	 */
-	public function scopeRegexpSearch(Builder $query, ?string $term, string|array $columns): void
+	public function scopeTermSearch(Builder $query, ?string $term, string|array $columns): void
 	{
 		if (is_null($term)) {
 			return;
