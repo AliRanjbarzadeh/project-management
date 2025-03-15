@@ -24,7 +24,7 @@ class ResetPasswordRequest extends FormRequest
 		return [
 			'email' => 'required|email|exists:users,email',
 			'token' => 'required',
-			'password' => 'required|string|min:8',
+			'password' => 'required|string|min:8|confirmed',
 			'password_confirmation' => 'required|confirmed:password',
 		];
 	}
@@ -39,8 +39,7 @@ class ResetPasswordRequest extends FormRequest
 			'password.required' => __('reset_password.validations.password.required'),
 			'password.string' => __('reset_password.sentences.smth_went_wrong'),
 			'password.min' => __('reset_password.validations.password.min'),
-			'password_confirmation.required' => __('reset_password.validations.password_confirmation.required'),
-			'password_confirmation.confirmed' => __('reset_password.validations.password_confirmation.match'),
+			'password.confirmed' => __('reset_password.validations.password.match'),
 		];
 	}
 }

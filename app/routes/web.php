@@ -26,7 +26,7 @@ Route::middleware('guest')->group(function () {
 
 	Route::prefix('register')->name('register.')->group(function () {
 		Route::get('', [RegisterController::class, 'index'])->name('index');
-		Route::post('', [RegisterController::class, 'register'])->name('register');
+		Route::post('', [RegisterController::class, 'attempt'])->name('attempt');
 	});
 });
 
