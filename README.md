@@ -69,13 +69,13 @@ password: 123
 ### To stop
 
    ```sh
-   bash install.sh
+   bash stop.sh
    ```
 
 ### To start again
 
    ```sh
-   bash install.sh
+   bash start.sh
    ```
 
 ## API
