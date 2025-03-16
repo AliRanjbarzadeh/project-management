@@ -1,4 +1,4 @@
-# Laravel Project Management API
+# Laravel Project Management
 
 This is a **Laravel-based project management** that enables users to register, authenticate, and manage projects and
 tasks efficiently. Built with a **clean code structure** and following the **service pattern**, this API ensures
