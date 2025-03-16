@@ -6,6 +6,7 @@ use App\DataTables\Buttons\ActionButton;
 use App\Datatables\TasksDataTable;
 use App\DataTransferObjects\DatatablesFilterDto;
 use App\DataTransferObjects\TaskDto;
+use App\Enums\HttpStatusEnum;
 use App\Http\Requests\TaskPriorityRequest;
 use App\Http\Requests\TaskRequest;
 use App\Http\Requests\TaskStatusRequest;
@@ -52,7 +53,7 @@ class TaskController extends Controller
 	public function create(Request $request, Project $project)
 	{
 		//Check if user is owner of project
-		abort_if(!$this->projectService->isOwner($request->user(), $project), 403);
+		abort_if(!$this->projectService->isOwner($request->user(), $project), HttpStatusEnum::FORBIDDEN);
 
 		$this->setPageTitle(__('task.actions.create'));
 
@@ -62,7 +63,7 @@ class TaskController extends Controller
 	public function store(TaskRequest $request, Project $project)
 	{
 		//Check if user is owner of task
-		abort_if(!$this->projectService->isOwner($request->user(), $project), 403);
+		abort_if(!$this->projectService->isOwner($request->user(), $project), HttpStatusEnum::FORBIDDEN);
 
 		if (!is_null($this->service->store($project, TaskDto::fromRequest($request)))) {
 			return redirect(route('projects.tasks.create', $project))->with('success', __('task.sentences.store.success'));
@@ -74,7 +75,7 @@ class TaskController extends Controller
 	public function edit(Request $request, Project $project, Task $task)
 	{
 		//Check if user is owner of task
-		abort_if(!$this->service->isOwner($request->user(), $task), 403);
+		abort_if(!$this->service->isOwner($request->user(), $task), HttpStatusEnum::FORBIDDEN);
 
 		$this->setPageTitle(__('task.actions.edit'));
 
@@ -84,7 +85,7 @@ class TaskController extends Controller
 	public function update(TaskRequest $request, Project $project, Task $task)
 	{
 		//Check if user is owner of task
-		abort_if(!$this->service->isOwner($request->user(), $task), 403);
+		abort_if(!$this->service->isOwner($request->user(), $task), HttpStatusEnum::FORBIDDEN);
 
 		if ($this->service->update($task, TaskDto::fromRequest($request))) {
 			return redirect(route('projects.tasks.index', $project))->with('success', __('task.sentences.update.success'));
@@ -96,7 +97,7 @@ class TaskController extends Controller
 	public function destroy(Request $request, Project $project, Task $task): JsonResponse
 	{
 		//Check if user is owner of task
-		abort_if(boolean: !$this->service->isOwner($request->user(), $task), code: 403, headers: [
+		abort_if(boolean: !$this->service->isOwner($request->user(), $task), code: HttpStatusEnum::FORBIDDEN, headers: [
 			'Content-Type' => 'application/json',
 		]);
 
@@ -108,13 +109,13 @@ class TaskController extends Controller
 
 		return response()->json([
 			'message' => __('task.sentences.destroy.error'),
-		], 400);
+		], HttpStatusEnum::BAD_REQUEST);
 	}
 
 	public function changePriority(TaskPriorityRequest $request, Project $project, Task $task): JsonResponse
 	{
 		//Check if user is owner of task
-		abort_if(boolean: !$this->service->isOwner($request->user(), $task), code: 403, headers: [
+		abort_if(boolean: !$this->service->isOwner($request->user(), $task), code: HttpStatusEnum::FORBIDDEN, headers: [
 			'Content-Type' => 'application/json',
 		]);
 
@@ -126,13 +127,13 @@ class TaskController extends Controller
 
 		return response()->json([
 			'message' => __('task.sentences.update.error'),
-		], 400);
+		], HttpStatusEnum::BAD_REQUEST);
 	}
 
 	public function changeStatus(TaskStatusRequest $request, Project $project, Task $task): JsonResponse
 	{
 		//Check if user is owner of task
-		abort_if(boolean: !$this->service->isOwner($request->user(), $task), code: 403, headers: [
+		abort_if(boolean: !$this->service->isOwner($request->user(), $task), code: HttpStatusEnum::FORBIDDEN, headers: [
 			'Content-Type' => 'application/json',
 		]);
 
@@ -144,6 +145,6 @@ class TaskController extends Controller
 
 		return response()->json([
 			'message' => __('task.sentences.update.error'),
-		], 400);
+		], HttpStatusEnum::BAD_REQUEST);
 	}
 }

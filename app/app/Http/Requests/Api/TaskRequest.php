@@ -1,19 +1,9 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class TaskRequest extends FormRequest
+class TaskRequest extends BaseApiRequest
 {
-	/**
-	 * Determine if the user is authorized to make this request.
-	 */
-	public function authorize(): bool
-	{
-		return true;
-	}
-
 	/**
 	 * Get the validation rules that apply to the request.
 	 *
@@ -22,6 +12,7 @@ class TaskRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
+			'project_id' => 'required|exists:projects,id',
 			'title' => 'required|string|max:200',
 			'description' => 'bail',
 			'priority' => 'required|string|in:low,medium,high',
@@ -33,6 +24,8 @@ class TaskRequest extends FormRequest
 	public function messages()
 	{
 		return [
+			'project_id.required' => __('task.validations.project_id.required'),
+			'project_id.exists' => __('task.validations.project_id.exists'),
 			'title.required' => __('task.validations.title.required'),
 			'title.max' => __('task.validations.title.max'),
 			'priority.required' => __('task.validations.priority.required'),

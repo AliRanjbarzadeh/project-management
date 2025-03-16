@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AuthRequest extends FormRequest
 {
@@ -36,10 +34,5 @@ class AuthRequest extends FormRequest
 			'username.required' => __('auth.validations.username.required'),
 			'password.required' => __('auth.validations.password.required'),
 		];
-	}
-
-	protected function failedValidation(Validator $validator)
-	{
-		parent::failedValidation($validator);
 	}
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasSearch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Log;
 use Morilog\Jalali\Jalalian;
@@ -115,4 +116,8 @@ class Task extends Model
 	}
 
 	/*==========================Relations==========================*/
+	public function project(): BelongsTo
+	{
+		return $this->belongsTo(Project::class);
+	}
 }

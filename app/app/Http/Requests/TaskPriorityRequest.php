@@ -11,7 +11,7 @@ class TaskPriorityRequest extends FormRequest
 	 */
 	public function authorize(): bool
 	{
-		return auth('web')->check();
+		return true;
 	}
 
 	/**
