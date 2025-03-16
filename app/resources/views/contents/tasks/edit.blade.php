@@ -7,7 +7,7 @@
 
 		<div class="card mb-3">
 			<div class="card-body">
-				<h5 class="card-title">@lang('task.actions.create')</h5>
+				<h5 class="card-title">@lang('task.actions.edit')</h5>
 
 				<div class="row">
 

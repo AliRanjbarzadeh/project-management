@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetPasswordController;
@@ -44,6 +45,12 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth:web')->group(function () {
 	//Logout
 	Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+	//Profile routes
+	Route::prefix('profile')->name('profile.')->group(function () {
+		Route::get('', [ProfileController::class, 'index'])->name('index');
+		Route::post('', [ProfileController::class, 'update'])->name('update');
+	});
 
 	//Dashboard
 	Route::get('/', [DashboardController::class, 'index'])->name('index');

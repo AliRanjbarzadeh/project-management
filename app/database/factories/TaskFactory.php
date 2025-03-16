@@ -17,16 +17,16 @@ class TaskFactory extends Factory
 	 */
 	public function definition(): array
 	{
-		$dueDate = $this->faker->optional()->dateTimeBetween('now', '+1 month');
-		$deadline = $this->faker->optional()->dateTimeBetween($dueDate, '+2 month');
+		$dueDate = fake()->optional()->dateTimeBetween('now', '+1 month');
+		$deadline = fake()->optional()->dateTimeBetween($dueDate, '+2 month');
 
 		return [
-			'title' => $this->faker->sentence(4), // Random task title
-			'status' => $this->faker->randomElement(['complete', 'incomplete']), // Random status
-			'priority' => $this->faker->randomElement(['low', 'medium', 'high']), // Random priority
-			'description' => $this->faker->optional()->paragraph(), // Optional description
-			'due_date' => Jalalian::fromDateTime($dueDate)->format('Y/m/d'), // Random future date
-			'deadline' => Jalalian::fromDateTime($deadline)->format('Y/m/d'), // Deadline within 2 months
+			'title' => fake()->word(),
+			'status' => fake()->randomElement(['complete', 'incomplete']),
+			'priority' => fake()->randomElement(['low', 'medium', 'high']),
+			'description' => fake()->optional()->paragraph(),
+			'due_date' => Jalalian::fromDateTime($dueDate)->format('Y/m/d'),
+			'deadline' => Jalalian::fromDateTime($deadline)->format('Y/m/d'),
 			'created_at' => now(),
 			'updated_at' => now(),
 		];
