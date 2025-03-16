@@ -99,6 +99,11 @@ This project provides **5 API requests** with **basic authentication** for proje
    password: 123
    ```
 
+## API
+   ```url
+   http://localhost:8006/api/documentation
+   ```
+
 ## Tests
 
 Run tests:
