@@ -51,18 +51,20 @@ This project provides **5 API requests** with **basic authentication** for proje
 ## Installation
 
 1. Run install bash
-   ```sh
-   bash install.sh
-   ```
+
+```sh
+bash install.sh
+```
+
 2. Open in browser:
-   ```url
-   http://localhost:8006
-   
-   username: test
-   email: test@test.com
-   password: 123
-   ```
-   ```
+
+```url
+http://localhost:8006
+
+username: test
+email: test@test.com
+password: 123
+```
 
 ### To stop
 
