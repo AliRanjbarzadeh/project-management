@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
+use JsonException;
 
 class General
 {
@@ -16,25 +18,24 @@ class General
 	 */
 	public static function toJson(mixed $value): mixed
 	{
-		if (is_null($value)) {
-			return $value;
+		try {
+			if (is_null($value)) {
+				return null;
+			}
+
+			if (is_numeric($value)) {
+				return $value;
+			}
+
+			if (is_string($value)) {
+				return $value;
+			}
+
+			return json_encode($value, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+		} catch (JsonException $e) {
+			Log::error('json encode error -> ' . $e->getMessage(), $e->getTrace());
+			return null;
 		}
-
-		if (is_numeric($value)) {
-			return $value;
-		}
-
-		if (is_string($value)) {
-			return $value;
-		}
-
-		$encoded = json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-
-		if ($encoded === false) {
-			return $value;
-		}
-
-		return $encoded;
 	}
 
 	/**
@@ -47,13 +48,11 @@ class General
 	{
 		try {
 			if (!is_null($value)) {
-				$decoded = json_decode($value, $isArray, 512, JSON_THROW_ON_ERROR);
-				if (json_last_error() === JSON_ERROR_NONE) {
-					return $decoded;
-				}
+				return json_decode($value, $isArray, 512, JSON_THROW_ON_ERROR);
 			}
 			return null;
-		} catch (\Exception $e) {
+		} catch (JsonException $e) {
+			Log::error('json decode error -> ' . $e->getMessage(), $e->getTrace());
 			return $value;
 		}
 	}
@@ -61,21 +60,6 @@ class General
 	public static function toSeoUrl(string $url): string
 	{
 		return empty($url) ? $url : implode("-", preg_split('/\s+/', preg_replace('/[!-\/:-@[-`{-~÷٬٫٪×،ـ؟]+/', '', str_replace("-", " ", $url))));
-	}
-
-	public static function urlToFile(string $url): UploadedFile
-	{
-		$arrContextOptions = array(
-			"ssl" => array(
-				"verify_peer" => false,
-				"verify_peer_name" => false,
-			),
-		);
-		$info = pathinfo($url);
-		$contents = file_get_contents($url, false, stream_context_create($arrContextOptions));
-		$file = base_path('tmp/' . $info['basename']);
-		file_put_contents($file, $contents);
-		return new UploadedFile(path: $file, originalName: $info['basename'], test: true);
 	}
 
 	public static function country2flag(?string $countryCode): string

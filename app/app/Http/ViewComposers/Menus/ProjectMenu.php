@@ -27,7 +27,7 @@ class ProjectMenu implements MenuInterface
 				]),
 				collect([
 					'href' => route('projects.index'),
-					'is_active' => $request->routeIs('projects.index', 'projects.edit'),
+					'is_active' => $request->routeIs('projects.index', 'projects.edit', 'projects.tasks.*'),
 					'name' => __('global.fields.archive'),
 					'i18n' => 'Projects Archive',
 					'is_allowed' => true,

@@ -6,11 +6,14 @@ use App\DataTables\Buttons\ActionButton;
 use App\Datatables\TasksDataTable;
 use App\DataTransferObjects\DatatablesFilterDto;
 use App\DataTransferObjects\TaskDto;
+use App\Http\Requests\TaskPriorityRequest;
 use App\Http\Requests\TaskRequest;
+use App\Http\Requests\TaskStatusRequest;
 use App\Models\Project;
 use App\Models\Task;
 use App\Services\ProjectService;
 use App\Services\TaskService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -84,7 +87,7 @@ class TaskController extends Controller
 		return redirect()->back()->withInput()->withErrors(['message' => __('task.sentences.update.error')]);
 	}
 
-	public function destroy(Request $request, Project $project, Task $task)
+	public function destroy(Request $request, Project $project, Task $task): JsonResponse
 	{
 		abort_if(boolean: !$this->service->isOwner($request->user(), $task), code: 403, headers: [
 			'Content-Type' => 'application/json',
@@ -97,7 +100,41 @@ class TaskController extends Controller
 		}
 
 		return response()->json([
-			'message' => __('task.sentences.destroy.success'),
+			'message' => __('task.sentences.destroy.error'),
+		], 400);
+	}
+
+	public function changePriority(TaskPriorityRequest $request, Project $project, Task $task): JsonResponse
+	{
+		abort_if(boolean: !$this->service->isOwner($request->user(), $task), code: 403, headers: [
+			'Content-Type' => 'application/json',
+		]);
+
+		if ($this->service->changePriority($task, $request->input('priority'))) {
+			return response()->json([
+				'message' => __('task.sentences.update.success'),
+			]);
+		}
+
+		return response()->json([
+			'message' => __('task.sentences.update.error'),
+		], 400);
+	}
+
+	public function changeStatus(TaskStatusRequest $request, Project $project, Task $task): JsonResponse
+	{
+		abort_if(boolean: !$this->service->isOwner($request->user(), $task), code: 403, headers: [
+			'Content-Type' => 'application/json',
+		]);
+
+		if ($this->service->changeStatus($task, $request->input('status'))) {
+			return response()->json([
+				'message' => __('task.sentences.update.success'),
+			]);
+		}
+
+		return response()->json([
+			'message' => __('task.sentences.update.error'),
 		], 400);
 	}
 }

@@ -21,7 +21,7 @@ class ProjectService
 		$projects = Project::query()
 			->whereUserId($dto->getValue('user_id'))
 			->termSearch(term: $dto->getValue('title'), columns: 'title')
-			->dateRangeSearch(fromDate: $dto->getValue('from_created_at'), toDate: $dto->getValue('to_created_at'));
+			->dateRangeSearch(column: 'created_at', fromDate: $dto->getValue('from_created_at'), toDate: $dto->getValue('to_created_at'));
 
 		return $this->datatablesService
 			->setHasPriority(false)

@@ -9,12 +9,13 @@ trait HasSearch
 {
 	/**
 	 * @param Builder $query
+	 * @param string $column
 	 * @param string|null $fromDate
 	 * @param string|null $toDate
 	 *
 	 * @return void
 	 */
-	public function scopeDateRangeSearch(Builder $query, ?string $fromDate, ?string $toDate): void
+	public function scopeDateRangeSearch(Builder $query, string $column, ?string $fromDate, ?string $toDate): void
 	{
 		$fromDateStr = '';
 		$toDateStr = '';
@@ -27,16 +28,16 @@ trait HasSearch
 		}
 
 		if (!empty($fromDateStr) && !empty($toDateStr)) {
-			$query->whereDate('created_at', '>=', $fromDateStr)
-				->whereDate('created_at', '<=', $toDateStr);
+			$query->whereDate($column, '>=', $fromDateStr)
+				->whereDate($column, '<=', $toDateStr);
 		}
 
 		if (!empty($fromDateStr) && empty($toDateStr)) {
-			$query->whereDate('created_at', '=', $fromDateStr);
+			$query->whereDate($column, '=', $fromDateStr);
 		}
 
 		if (empty($fromDateStr) && !empty($toDateStr)) {
-			$query->whereDate('created_at', '<=', $toDateStr);
+			$query->whereDate($column, '<=', $toDateStr);
 		}
 	}
 

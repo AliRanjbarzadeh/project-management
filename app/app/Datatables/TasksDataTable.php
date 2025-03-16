@@ -18,6 +18,9 @@ class TasksDataTable extends BaseDataTable
 		$this->attributes['has_priority'] = false;
 		$this->attributes['exportable'] = false;
 		$this->attributes['model_name'] = Task::class;
+
+		$this->addDropDown('status', $this->getStatuses());
+		$this->addDropDown('priority', $this->getPriorities());
 	}
 
 	public function setProject(Project $project): static
@@ -39,7 +42,7 @@ class TasksDataTable extends BaseDataTable
 					}
 				}',
 			])
-			->orderBy(4);
+			->orderBy(6);
 	}
 
 	public function getColumns(): array
@@ -59,6 +62,24 @@ class TasksDataTable extends BaseDataTable
 				->exportable()
 				->printable()
 				->type('text'),
+
+			Column::make('priority_drop_down', 'priority')
+				->title(__('task.fields.priority'))
+				->responsivePriority(1)
+				->orderable(false)
+				->exportable()
+				->printable()
+				->searchable()
+				->type('dropdown'),
+
+			Column::make('status_drop_down', 'status')
+				->title(__('task.fields.status'))
+				->responsivePriority(1)
+				->orderable(false)
+				->exportable()
+				->printable()
+				->searchable()
+				->type('dropdown'),
 
 			Column::make('due_date_jalali', 'due_date')
 				->title(__('task.fields.due_date'))
@@ -88,6 +109,23 @@ class TasksDataTable extends BaseDataTable
 				->printable(false)
 				->exportable(false)
 				->searchable(false),
+		];
+	}
+
+	private function getStatuses(): array
+	{
+		return [
+			'complete' => __('task.statuses.complete'),
+			'incomplete' => __('task.statuses.incomplete'),
+		];
+	}
+
+	private function getPriorities(): array
+	{
+		return [
+			'low' => __('task.priorities.low'),
+			'medium' => __('task.priorities.medium'),
+			'high' => __('task.priorities.high'),
 		];
 	}
 }

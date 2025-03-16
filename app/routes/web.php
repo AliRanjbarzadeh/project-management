@@ -54,7 +54,14 @@ Route::middleware('auth:web')->group(function () {
 
 		//Task routes
 		Route::prefix('{project}/tasks')->name('tasks.')->group(function () {
+			//Datatable
 			Route::datatable(TaskController::class);
+
+			//Change priority
+			Route::patch('{task}/change-priority', [TaskController::class, 'changePriority'])->name('change-priority');
+
+			//Change status
+			Route::patch('{task}/change-status', [TaskController::class, 'changeStatus'])->name('change-status');
 		});
 		Route::resource('{project}/tasks', TaskController::class);
 	});

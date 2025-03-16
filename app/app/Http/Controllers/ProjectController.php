@@ -20,6 +20,8 @@ class ProjectController extends Controller
 
 	public function index(ProjectsDataTable $dataTable)
 	{
+		$this->setPageTitle(__('project.plural'));
+
 		return $dataTable->render('contents.datatable');
 	}
 
@@ -33,6 +35,8 @@ class ProjectController extends Controller
 
 	public function create()
 	{
+		$this->setPageTitle(__('project.actions.create'));
+
 		return view('contents.projects.create');
 	}
 
@@ -48,6 +52,8 @@ class ProjectController extends Controller
 	public function edit(Request $request, Project $project)
 	{
 		abort_if(!$this->service->isOwner($request->user(), $project), 403);
+
+		$this->setPageTitle(__('project.actions.edit'));
 
 		return view('contents.projects.edit', compact('project'));
 	}

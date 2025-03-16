@@ -180,12 +180,33 @@ function showItem(element) {
 function changeStatusItem(element) {
 	const url = element.getAttribute('data-url');
 	const status = element.getAttribute('data-status');
-	const part = element.getAttribute('data-part');
-	if (url === undefined || url === null || url === '' || status === undefined || status === null || status === '' || part === undefined || part === null || part === '') {
+	if (url === undefined || url === null || url === '' || status === undefined || status === null || status === '') {
 		return;
 	}
 
-	axios.patch(url, {part: part, value: parseInt(status) === 1}).then((response) => {
+	axios.patch(url, {status: status}).then((response) => {
+		if (typeof rowActionDone === 'function') {
+			rowActionDone(true, response.data.message);
+		}
+	}).catch((error) => {
+		if (typeof rowActionDone === 'function') {
+			if (error.response) {
+				rowActionDone(false, error.response.data.message);
+			} else {
+				rowActionDone(false, __('admin/global.errors.reject'));
+			}
+		}
+	});
+}
+
+function changePriorityItem(element) {
+	const url = element.getAttribute('data-url');
+	const priority = element.getAttribute('data-priority');
+	if (url === undefined || url === null || url === '' || priority === undefined || priority === null || priority === '') {
+		return;
+	}
+
+	axios.patch(url, {priority: priority}).then((response) => {
 		if (typeof rowActionDone === 'function') {
 			rowActionDone(true, response.data.message);
 		}

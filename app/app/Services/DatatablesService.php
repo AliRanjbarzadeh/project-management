@@ -3,16 +3,13 @@
 namespace App\Services;
 
 use App\DataTables\Buttons\ToolButton;
-use App\Helpers\General;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Route;
 use Yajra\DataTables\EloquentDatatable;
 use Yajra\DataTables\Facades\DataTables;
 
 class DatatablesService
 {
 	private bool $hasPriority = false;
-	private bool $hasTranslate = false;
 	private array $defaultActions = ['edit', 'destroy'];
 	private EloquentDatatable $datatable;
 	private string $moduleName;
@@ -41,12 +38,6 @@ class DatatablesService
 	public function setHasPriority(bool $hasPriority): static
 	{
 		$this->hasPriority = $hasPriority;
-		return $this;
-	}
-
-	public function setHasTranslate(bool $hasTranslate): static
-	{
-		$this->hasTranslate = $hasTranslate;
 		return $this;
 	}
 
@@ -112,16 +103,7 @@ class DatatablesService
 
 			$actions = $this->actions;
 
-			$languages = General::getAvailableLanguages([app()->getLocale()]);
-
-			$translationRoute = null;
-			if ($this->hasTranslate) {
-				if (Route::has("admin.$this->moduleName.translate.create")) {
-					$translationRoute = "admin.$this->moduleName.translate.create";
-				}
-			}
-
-			return view('datatables::actions', compact('actions', 'model', 'params', 'translationRoute', 'languages'));
+			return view('datatables::actions', compact('actions', 'model', 'params'));
 		});
 	}
 
