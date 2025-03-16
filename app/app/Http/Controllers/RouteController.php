@@ -6,6 +6,9 @@ use Illuminate\Support\Arr;
 
 class RouteController extends Controller
 {
+	/**
+	 * Generate dynamic translation.js file to use in js files
+	 */
 	public function translations()
 	{
 		$files = array_merge(glob(base_path('lang/fa/**/*.php')), glob(base_path('lang/fa/*.php')));
@@ -38,6 +41,9 @@ window.__ = function(name, parameters = null) {
 		return response($content)->header('Content-Type', 'application/javascript');
 	}
 
+	/**
+	 * Generate dynamic routes.js file to use in js files
+	 */
 	public function router()
 	{
 		$routes_name = array_keys(app('router')->getRoutes()->getRoutesByName());

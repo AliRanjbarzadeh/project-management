@@ -5,7 +5,6 @@ namespace App\Datatables;
 use App\DataTables\Buttons\ActionButton;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cookie;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -23,31 +22,32 @@ class BaseDataTable extends DataTable
 	];
 
 	/**
+	 * Action buttons used in filter area (for example: Clear filter button)
+	 *
 	 * @var array|ActionButton[]
 	 */
 	private array $actionButtons;
 
 	/**
+	 * Action links used below action buttons in filter area (for example: New item link for that table)
+	 *
 	 * @var array|ActionButton[]
 	 */
 	private array $actionLinks = [];
 
-	protected Collection $categories;
-	protected Collection $categoryFilters;
-	protected Collection $multipleCategory;
+	/**
+	 * Modals used for javascript call to actions
+	 *
+	 * @var array
+	 */
 	protected array $modals = [];
+
+	/**
+	 * Using for filters need to be select2 (for example: status)
+	 *
+	 * @var array
+	 */
 	protected array $dropdowns = [];
-	protected Collection $statistics;
-
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->multipleCategory = collect();
-		$this->statistics = collect();
-		$this->categories = collect();
-		$this->categoryFilters = collect();
-	}
 
 	public function dataTable(QueryBuilder $query): EloquentDataTable
 	{
@@ -95,12 +95,24 @@ class BaseDataTable extends DataTable
 		return parent::render($view, $data, $mergeData);
 	}
 
+	/**
+	 * Mark table as filterable
+	 *
+	 * @param bool $flag
+	 * @return $this
+	 */
 	protected function filterable(bool $flag = true): static
 	{
 		$this->attributes['filterable'] = $flag;
 		return $this;
 	}
 
+	/**
+	 * Mark table as exportable (Export Excel)
+	 *
+	 * @param bool $flag
+	 * @return $this
+	 */
 	protected function exportable(bool $flag = true): static
 	{
 		$this->attributes['exportable'] = $flag;
@@ -108,6 +120,8 @@ class BaseDataTable extends DataTable
 	}
 
 	/**
+	 * Get action buttons
+	 *
 	 * @return array|ActionButton[]
 	 */
 	private function getActionButtons(): array
@@ -153,7 +167,7 @@ class BaseDataTable extends DataTable
 	}
 
 	/**
-	 * Action buttons shows below filters
+	 * Append action button
 	 *
 	 * @param ActionButton $actionButton
 	 * @return $this
@@ -165,7 +179,7 @@ class BaseDataTable extends DataTable
 	}
 
 	/**
-	 * Action links shows below table action button filters
+	 * Append action links
 	 *
 	 * @param ActionButton $actionLink
 	 * @return $this
@@ -176,23 +190,46 @@ class BaseDataTable extends DataTable
 		return $this;
 	}
 
+	/**
+	 * Append modal
+	 *
+	 * @param array $modal
+	 * @return $this
+	 */
 	public function addModal(array $modal): static
 	{
 		$this->modals[] = $modal;
 		return $this;
 	}
 
+	/**
+	 * Append dropdown
+	 *
+	 * @param string $key
+	 * @param array $values
+	 * @return $this
+	 */
 	public function addDropDown(string $key, array $values): static
 	{
 		$this->dropdowns[$key] = $values;
 		return $this;
 	}
 
+	/**
+	 * Get table columns
+	 *
+	 * @return array
+	 */
 	public function getColumns(): array
 	{
 		return [];
 	}
 
+	/**
+	 * Get top block of table (filters, action buttons and ...)
+	 * @return string
+	 * @throws \Throwable
+	 */
 	public function getTopBlock(): string
 	{
 		$inputs = collect($this->getColumns())->where('searchable', '=', true);

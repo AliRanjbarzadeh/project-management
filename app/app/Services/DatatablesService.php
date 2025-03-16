@@ -5,6 +5,7 @@ namespace App\Services;
 use App\DataTables\Buttons\ToolButton;
 use Illuminate\Database\Eloquent\Model;
 use Yajra\DataTables\EloquentDatatable;
+use Yajra\DataTables\Exceptions\Exception;
 use Yajra\DataTables\Facades\DataTables;
 
 class DatatablesService
@@ -15,13 +16,19 @@ class DatatablesService
 	private string $moduleName;
 
 	/**
+	 * Used for each row in table
 	 * @var array|ToolButton[]
 	 */
 	private array $actions;
 
+	/**
+	 * Extra url params before model param used before model in url
+	 * @var array
+	 */
 	private array $params = [];
 
 	/**
+	 * Set route name (for example: projects, projects.tasks and ...)
 	 * @param string $moduleName
 	 * @return $this
 	 */
@@ -41,24 +48,46 @@ class DatatablesService
 		return $this;
 	}
 
+	/**
+	 * With this method you can limit default actions to show for each row in table (edit, destroy are defaults actions)
+	 * @param array $defaultActions
+	 * @return $this
+	 */
 	public function setDefaultActions(array $defaultActions): static
 	{
 		$this->defaultActions = $defaultActions;
 		return $this;
 	}
 
+	/**
+	 * Add extra param
+	 * @param int|string $param
+	 * @return $this
+	 */
 	public function addParam(int|string $param): static
 	{
 		$this->params[] = $param;
 		return $this;
 	}
 
+	/**
+	 * Add extra action button (shows for each row)
+	 * @param ToolButton $button
+	 * @return $this
+	 */
 	public function addAction(ToolButton $button): static
 	{
 		$this->actions[] = $button;
 		return $this;
 	}
 
+	/**
+	 * Build datatable
+	 *
+	 * @param $query
+	 * @return EloquentDatatable
+	 * @throws Exception
+	 */
 	public function build($query): EloquentDatatable
 	{
 		//Make instance
@@ -73,6 +102,12 @@ class DatatablesService
 		return $this->datatable;
 	}
 
+	/**
+	 * Make base datatable
+	 * @param $query
+	 * @return void
+	 * @throws \Yajra\DataTables\Exceptions\Exception
+	 */
 	private function makeDatatable($query): void
 	{
 		$this->datatable = DataTables::eloquent($query)
@@ -80,6 +115,10 @@ class DatatablesService
 			->setRowId('id');
 	}
 
+	/**
+	 * Render priority column
+	 * @return void
+	 */
 	private function renderPriority(): void
 	{
 		if ($this->hasPriority) {
@@ -94,6 +133,10 @@ class DatatablesService
 		}
 	}
 
+	/**
+	 * Render action buttons
+	 * @return void
+	 */
 	private function renderActions(): void
 	{
 		$this->makeDefaultActions();
@@ -107,6 +150,10 @@ class DatatablesService
 		});
 	}
 
+	/**
+	 * Add default actions based on user selected
+	 * @return void
+	 */
 	private function makeDefaultActions(): void
 	{
 		if (in_array('edit', $this->defaultActions, true)) {

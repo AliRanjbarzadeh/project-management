@@ -2,6 +2,9 @@
 
 namespace App\DataTables\Buttons;
 
+/**
+ * Using in tools of row in Datatables
+ */
 class ToolButton
 {
 	public string $title;

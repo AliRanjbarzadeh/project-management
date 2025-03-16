@@ -40,7 +40,7 @@ class TaskController extends Controller
 			->render('contents.datatable');
 	}
 
-	public function datatables(Request $request, Project $project)
+	public function datatables(Request $request, Project $project): JsonResponse
 	{
 		return $this->service->datatables(
 			DatatablesFilterDto::fromRequest($request)
@@ -51,7 +51,9 @@ class TaskController extends Controller
 
 	public function create(Request $request, Project $project)
 	{
+		//Check if user is owner of project
 		abort_if(!$this->projectService->isOwner($request->user(), $project), 403);
+
 		$this->setPageTitle(__('task.actions.create'));
 
 		return view('contents.tasks.create', compact('project'));
@@ -59,6 +61,7 @@ class TaskController extends Controller
 
 	public function store(TaskRequest $request, Project $project)
 	{
+		//Check if user is owner of task
 		abort_if(!$this->projectService->isOwner($request->user(), $project), 403);
 
 		if (!is_null($this->service->store($project, TaskDto::fromRequest($request)))) {
@@ -70,7 +73,9 @@ class TaskController extends Controller
 
 	public function edit(Request $request, Project $project, Task $task)
 	{
+		//Check if user is owner of task
 		abort_if(!$this->service->isOwner($request->user(), $task), 403);
+
 		$this->setPageTitle(__('task.actions.edit'));
 
 		return view('contents.tasks.edit', compact('project', 'task'));
@@ -78,6 +83,7 @@ class TaskController extends Controller
 
 	public function update(TaskRequest $request, Project $project, Task $task)
 	{
+		//Check if user is owner of task
 		abort_if(!$this->service->isOwner($request->user(), $task), 403);
 
 		if ($this->service->update($task, TaskDto::fromRequest($request))) {
@@ -89,6 +95,7 @@ class TaskController extends Controller
 
 	public function destroy(Request $request, Project $project, Task $task): JsonResponse
 	{
+		//Check if user is owner of task
 		abort_if(boolean: !$this->service->isOwner($request->user(), $task), code: 403, headers: [
 			'Content-Type' => 'application/json',
 		]);
@@ -106,6 +113,7 @@ class TaskController extends Controller
 
 	public function changePriority(TaskPriorityRequest $request, Project $project, Task $task): JsonResponse
 	{
+		//Check if user is owner of task
 		abort_if(boolean: !$this->service->isOwner($request->user(), $task), code: 403, headers: [
 			'Content-Type' => 'application/json',
 		]);
@@ -123,6 +131,7 @@ class TaskController extends Controller
 
 	public function changeStatus(TaskStatusRequest $request, Project $project, Task $task): JsonResponse
 	{
+		//Check if user is owner of task
 		abort_if(boolean: !$this->service->isOwner($request->user(), $task), code: 403, headers: [
 			'Content-Type' => 'application/json',
 		]);

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\DataTransferObjects\AuthDto;
 use App\Http\Requests\AuthRequest;
 use App\Services\AuthService;
-use Morilog\Jalali\Jalalian;
 
 class AuthController extends Controller
 {
@@ -28,7 +27,10 @@ class AuthController extends Controller
 
 		if (auth('web')->validate($dto->toArray())) {
 			auth('web')->attempt($dto->toArray(), $dto->remember);
+
+			//Get last url when session user redirects to login page
 			$redirectUrl = session()?->pull('url.intended', route('index'));
+
 			return redirect()->intended($redirectUrl);
 		}
 

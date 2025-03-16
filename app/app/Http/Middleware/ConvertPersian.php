@@ -6,6 +6,13 @@ use Illuminate\Foundation\Http\Middleware\TransformsRequest;
 
 class ConvertPersian extends TransformsRequest
 {
+	/**
+	 * Convert arabic and persian numbers to english numbers in any request
+	 *
+	 * @param $key
+	 * @param $value
+	 * @return array|mixed|string|string[]|null
+	 */
 	protected function transform($key, $value)
 	{
 		if (is_null($value) || empty($value)) {

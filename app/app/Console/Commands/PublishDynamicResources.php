@@ -37,20 +37,31 @@ class PublishDynamicResources extends Command
 
 	private function adminResources(Client $client): void
 	{
+		//Create js directory in assets if not exists
 		if (!File::exists(public_path("assets/js/"))) {
 			File::makeDirectory(public_path("assets/js"));
 		}
 
+		//Delete router.js file in assets/js if exists
 		if (File::exists(public_path("assets/js/router.js"))) {
 			File::delete(public_path("assets/js/router.js"));
 		}
+
+		//Create router.js file in assets/js
 		$routeResource = Utils::tryFopen(public_path("assets/js/router.js"), 'w');
+
+		//Put routes content into router.js
 		$client->request('GET', route('assets.router', false), ['sink' => $routeResource]);
 
+		//Delete translations.js file in assets/js if exists
 		if (File::exists(public_path("assets/js/translations.js"))) {
 			File::delete(public_path("assets/js/translations.js"));
 		}
+
+		//Create translations.js file in assets/js
 		$translationResource = Utils::tryFopen(public_path("assets/js/translations.js"), 'w');
+
+		//Put translations content into translations.js
 		$client->request('GET', route('assets.translations'), ['sink' => $translationResource]);
 	}
 }

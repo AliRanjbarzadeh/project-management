@@ -29,7 +29,7 @@ class AuthService
 		$user = $this->findUserByEmailOrUsername($identifier);
 
 		if (!$user) {
-			return false; // User not found
+			return false;
 		}
 
 		// Send password reset link using Laravel's Password Broker

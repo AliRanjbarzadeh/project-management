@@ -24,12 +24,14 @@ class RegisterController extends Controller
 
 	public function attempt(RegisterRequest $request)
 	{
+		//Register user
 		$user = $this->service->register(RegisterDto::fromRequest($request));
 
 		if (is_null($user)) {
 			return redirect()->back()->withInput()->withErrors(['message' => __('register.sentences.error')]);
 		}
 
+		//Login user
 		Auth::guard('web')->login($user);
 
 		return redirect(route('index'))->with('success', __('register.sentences.success'));

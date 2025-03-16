@@ -51,6 +51,7 @@ class ProjectController extends Controller
 
 	public function edit(Request $request, Project $project)
 	{
+		//Check if user is owner of project
 		abort_if(!$this->service->isOwner($request->user(), $project), 403);
 
 		$this->setPageTitle(__('project.actions.edit'));
@@ -60,6 +61,7 @@ class ProjectController extends Controller
 
 	public function update(ProjectRequest $request, Project $project)
 	{
+		//Check if user is owner of project
 		abort_if(!$this->service->isOwner($request->user(), $project), 403);
 
 		if ($this->service->update($project, ProjectDto::fromRequest($request))) {
@@ -71,6 +73,7 @@ class ProjectController extends Controller
 
 	public function destroy(Request $request, Project $project)
 	{
+		//Check if user is owner of project
 		abort_if(boolean: !$this->service->isOwner($request->user(), $project), code: 403, headers: [
 			'Content-Type' => 'application/json',
 		]);
