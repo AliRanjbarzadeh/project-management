@@ -99,6 +99,19 @@ This project provides **5 API requests** with **basic authentication** for proje
    password: 123
    ```
 
+## Tests
+
+Run tests:
+
+   ```sh
+   docker exec -it project-management php artisan test
+   ```
+
+# Notice
+
+It's very important to run **db:seed** again after you run test, because all data in database will be cleared after
+tests completed
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
