@@ -95,7 +95,7 @@ This project provides **5 API requests** with **basic authentication** for proje
    http://localhost:8006
    
    username: test
-   email: test@example.com
+   email: test@test.com
    password: 123
    ```
 
