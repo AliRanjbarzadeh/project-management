@@ -10,8 +10,6 @@ class AuthTest extends TestCase
 {
 	use RefreshDatabase;
 
-	// Reset database for each test
-
 	public function test_dashboard_is_not_accessible_without_login(): void
 	{
 		$response = $this->get('/');

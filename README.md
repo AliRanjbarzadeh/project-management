@@ -43,54 +43,18 @@ This project provides **5 API requests** with **basic authentication** for proje
 - The project follows the **Service Pattern** for a **clean and maintainable** architecture.
 - **Dashboard Panel** for users to manage their projects and tasks efficiently.
 
+### Extra features
+
+- **Mail server** to see emails
+- **Languages** used to make key translations
+
 ## Installation
 
-1. Clone the repository:
+1. Run install bash
    ```sh
-   git clone https://github.com/AliRanjbarzadeh/project-management
+   bash install.sh
    ```
-2. Navigate to the project directory:
-   ```sh
-   cd project-management
-   ```
-3. Install docker dependencies:
-   ```sh
-   docker compose up --build -d
-   ```
-4. Copy the environment file and update the necessary configurations:
-   ```sh
-   docker exec -it project-management cp .env.example .env
-   ```
-5. Install composer dependencies:
-   ```sh
-   docker exec -it project-management cp composer install
-   ```
-6. Generate application key:
-   ```sh
-   docker exec -it project-management php artisan key:generate
-   ```
-7. Link storage:
-   ```sh
-   docker exec -it project-management php artisan storage:link
-   ```
-8. Set database config in .env:
-   ```sh
-   DB_CONNECTION=pgsql
-   DB_HOST=db
-   DB_PORT=5432
-   DB_DATABASE=crm
-   DB_USERNAME=user
-   DB_PASSWORD=123
-   ```
-9. Run migrations:
-   ```sh
-   docker exec -it project-management php artisan migrate
-   ```
-10. Run database seed:
-   ```sh
-   docker exec -it project-management php artisan db:seed
-   ```
-11. Open in browser:
+2. Open in browser:
    ```url
    http://localhost:8006
    
@@ -98,10 +62,32 @@ This project provides **5 API requests** with **basic authentication** for proje
    email: test@test.com
    password: 123
    ```
+   ```
+
+### To stop
+
+   ```sh
+   bash install.sh
+   ```
+
+### To start again
+
+   ```sh
+   bash install.sh
+   ```
 
 ## API
+
    ```url
    http://localhost:8006/api/documentation
+   ```
+
+## Local Mail Server
+
+Open mail server to see emails for reset password
+
+   ```url
+   http://localhost:8025
    ```
 
 ## Tests
@@ -109,13 +95,8 @@ This project provides **5 API requests** with **basic authentication** for proje
 Run tests:
 
    ```sh
-   docker exec -it project-management php artisan test
+   bash test.sh
    ```
-
-# Notice
-
-It's very important to run **db:seed** again after you run test, because all data in database will be cleared after
-tests completed
 
 ## License
 
